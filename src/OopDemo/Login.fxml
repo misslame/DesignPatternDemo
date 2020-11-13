@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="600.0" style="-fx-border-color: green; -fx-border-width: 5px; -fx-background-color: #86D88D;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OopDemo.Login">
+    <children>
+      <BorderPane depthTest="ENABLE" layoutX="101.0" layoutY="55.0" prefHeight="247.0" prefWidth="402.0" style="-fx-border-color: green; -fx-background-color: #FFF3BF; -fx-border-width: 3px;">
+         <top>
+              <Label fx:id="boogy" minHeight="16" minWidth="69" prefHeight="61.0" prefWidth="169.0" text="Welcome Back!" textFill="#258d1e" underline="true" wrapText="true" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Ebrima Bold" size="22.0" />
+               </font>
+            </Label>
+         </top>
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="85.0" layoutY="44.0" text="User Name" />
+                  <TextField fx:id="adminUserField" editable="false" layoutX="160.0" layoutY="40.0" text="Admin" />
+                  <Label layoutX="85.0" layoutY="110.0" text="Password" />
+                  <PasswordField fx:id="adminPassField" editable="false" layoutX="160.0" layoutY="106.0" text="admin" />
+                    <Button fx:id="red" layoutX="228.0" layoutY="147.0" onAction="#startAdminScene" prefHeight="25.0" prefWidth="90.0" text="Login" />
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+      <ImageView fitHeight="223.0" fitWidth="402.0" layoutX="101.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/bronco.png" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>
