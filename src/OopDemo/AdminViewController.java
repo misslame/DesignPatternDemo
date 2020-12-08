@@ -43,6 +43,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 /**************************/
 
 
@@ -60,6 +61,11 @@ public class AdminViewController implements Initializable {
     @FXML private TextField userID; // text field for entering a User ID
     @FXML private TextField groupID; // text field for entering a UserGroup ID
     @FXML private TextField infoField; // text field for expressing info to the user
+    @FXML private TextField recentlyUpdatedInfoField; // text field for expressing user thats been updated. 
+    @FXML private Label selectedUserLabel; // label that says who the current selected user is.
+    @FXML private Label timeCreatedLabel; // Label that says what time the current selected user was created.
+    @FXML private Label timeUpdatedLabel; // Label that says what time the current selected user was updated. 
+    
     
     @Override // On init -
     public void initialize(URL url, ResourceBundle rb) {
@@ -95,9 +101,17 @@ public class AdminViewController implements Initializable {
         if(node instanceof Text || (node  instanceof TreeCell && ((TreeCell) node).getText() != null)){
             selectedElement = tree.getSelectionModel().getSelectedItem().getValue();
             
+            updateSelectedUI();
+            
             //debug (should never be null)
             System.out.println("selected value is : " + selectedElement.toString());
         }
+    }
+    
+    private void updateSelectedUI(){
+        selectedUserLabel.setText(selectedElement.toString());
+        timeCreatedLabel.setText(selectedElement.getFormattedCreationTime());
+        timeUpdatedLabel.setText(selectedElement.getFormattedUpdatedTime());
     }
     
     @FXML // When a user presses enter after typing in a user ID
@@ -111,15 +125,23 @@ public class AdminViewController implements Initializable {
     private void onAddUser(Event event){
         if(selectedElement != null && selectedElement instanceof UserGroup){
             if(userID.getText().length() > 0){
-                GeneralUser newUser = new User(userID.getText());
-                
-                TreeItem<GeneralUser> treeitem = (TreeItem)tree.getSelectionModel().getSelectedItem();
-                TreeItem<GeneralUser> newTreeItem = new TreeItem<>(newUser);
-                ((UserGroup)treeitem.getValue()).addMember(newUser);
-                treeitem.getChildren().add(newTreeItem);
-                
-                tree.refresh(); // Reloads the tree to display new contents. 
-                userID.clear(); // Clears the TextField where the ID was typed
+                if(!tree.getRoot().getValue().exists(userID.getText())){
+                    GeneralUser newUser = new User(userID.getText());
+
+                    TreeItem<GeneralUser> treeitem = (TreeItem)tree.getSelectionModel().getSelectedItem();
+                    TreeItem<GeneralUser> newTreeItem = new TreeItem<>(newUser);
+                    ((UserGroup)treeitem.getValue()).addMember(newUser);
+                    treeitem.getChildren().add(newTreeItem);
+
+                    tree.refresh(); // Reloads the tree to display new contents. 
+                    userID.clear(); // Clears the TextField where the ID was typed
+                }else{
+                    // ALERT ON USERNAME ALREADY EXISTS.
+                    Alert a = new Alert(Alert.AlertType.NONE, "User already exists in the tree!",ButtonType.OK); 
+
+                    // show the dialog 
+                    a.show(); 
+                }
             }else{
                 // ALERT ON NO USERNAME ENTERED.
                 Alert a = new Alert(Alert.AlertType.NONE, "Please enter a name for the User you are adding.",ButtonType.OK); 
@@ -149,15 +171,23 @@ public class AdminViewController implements Initializable {
     private void onAddGroup(Event event){
         if(selectedElement != null && selectedElement instanceof UserGroup){
             if(groupID.getText().length() > 0){
-                GeneralUser newUser = new UserGroup(groupID.getText());
-                
-                TreeItem<GeneralUser> treeitem = (TreeItem)tree.getSelectionModel().getSelectedItem();
-                TreeItem<GeneralUser> newTreeItem = new TreeItem<>(newUser);
-                ((UserGroup)treeitem.getValue()).addMember(newUser);
-                treeitem.getChildren().add(newTreeItem);
-                
-                tree.refresh(); // Reloads the tree to display new contents.
-                groupID.clear(); // Clears the TextField where the ID was typed
+                if(!tree.getRoot().getValue().exists(userID.getText())){
+                    GeneralUser newUser = new UserGroup(groupID.getText());
+
+                    TreeItem<GeneralUser> treeitem = (TreeItem)tree.getSelectionModel().getSelectedItem();
+                    TreeItem<GeneralUser> newTreeItem = new TreeItem<>(newUser);
+                    ((UserGroup)treeitem.getValue()).addMember(newUser);
+                    treeitem.getChildren().add(newTreeItem);
+
+                    tree.refresh(); // Reloads the tree to display new contents.
+                    groupID.clear(); // Clears the TextField where the ID was typed
+                }else{
+                    // ALERT ON USERNAME ALREADY EXISTS
+                    Alert a = new Alert(Alert.AlertType.NONE, "Please enter a name for the group you are adding.",ButtonType.OK); 
+
+                    // show the dialog 
+                    a.show(); 
+                }
             }else{
                 // ALERT ON NO USERNAME ENTERED.
                 Alert a = new Alert(Alert.AlertType.NONE, "Please enter a name for the group you are adding.",ButtonType.OK); 
@@ -232,4 +262,12 @@ public class AdminViewController implements Initializable {
         infoField.setText("Number of Positive Messages: " + (Root.getInstance().countPositiveMessages()));
     }
     
+    
+    @FXML // Event: Output the most recently updated user
+    private void onGetMostRecentlyUpdated(Event event){
+        recentlyUpdatedInfoField.clear();
+        GeneralUser recentlyUpdated = Root.getInstance().getRecentlyUpdated();
+        recentlyUpdatedInfoField.setText("Most recently Updated at: " + (recentlyUpdated.getFormattedUpdatedTime()) + " " + (recentlyUpdated.toString()));
+           
+    }
 }

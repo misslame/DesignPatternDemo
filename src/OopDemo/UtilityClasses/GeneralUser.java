@@ -1,6 +1,8 @@
 
 package OopDemo.UtilityClasses;
 
+import java.time.ZonedDateTime;
+
 /***********************************************
  * User Interface:
  *  Participant in Composite/Visitor Design pattern
@@ -16,7 +18,11 @@ package OopDemo.UtilityClasses;
  */
 public interface GeneralUser {
 
+    public ZonedDateTime getUpdated();
     public int count(Visitor visitor);
+    public String getFormattedCreationTime();
+    public String getFormattedUpdatedTime();
+    public boolean exists(String str);
 
 }
 

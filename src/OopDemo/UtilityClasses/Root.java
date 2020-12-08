@@ -101,4 +101,25 @@ public class Root extends TreeView<GeneralUser>{
         Visitor visitor = new UserPositiveMessagesVisitor();
         return instance.getRoot().getValue().count(visitor);
     }
+    
+    public GeneralUser getRecentlyUpdated(){
+        
+        return getRecentlyUpdated((UserGroup)instance.getRoot().getValue());
+            
+    }
+    
+    public GeneralUser getRecentlyUpdated(UserGroup element){
+        GeneralUser mostRecentlyCreated = element;
+        
+        for (GeneralUser child : element.getMembers()){
+            if(child instanceof UserGroup){
+                mostRecentlyCreated = getRecentlyUpdated((UserGroup)child);
+            }else if(child.getUpdated().isAfter(mostRecentlyCreated.getUpdated())){
+                mostRecentlyCreated = child;
+            }
+                
+        }
+        
+        return mostRecentlyCreated;
+    }
 }

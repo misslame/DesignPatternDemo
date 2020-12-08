@@ -1,6 +1,8 @@
 
 package OopDemo.UtilityClasses;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList; // Newsfeed
 import java.util.HashSet; // Following and followers 
 import java.util.Observable; // Observer pattern
@@ -22,6 +24,8 @@ import java.util.Observer;
 public class User extends Observable implements GeneralUser, Observer {
     
     private String userName; // Also represents the id. 
+    private ZonedDateTime timeCreated; // when the user was created
+    private ZonedDateTime timeUpdated;
     private HashSet<User> followers;
     private HashSet<User> following;
     private ArrayList<Tweet> newsFeed;
@@ -33,6 +37,8 @@ public class User extends Observable implements GeneralUser, Observer {
      */
     public User(String name) {
         userName = name; 
+        timeCreated = ZonedDateTime.now();
+        timeUpdated = ZonedDateTime.now();
         followers = new HashSet<>();
         following = new HashSet<>();
         newsFeed = new ArrayList<>();
@@ -61,6 +67,10 @@ public class User extends Observable implements GeneralUser, Observer {
         return personalMessages;
     }
     
+    public ZonedDateTime getUpdated(){
+        return timeUpdated;
+    }
+    
     /**
      * (Updates other users' followers list)
      * @param toFollow who this user will follow
@@ -69,6 +79,7 @@ public class User extends Observable implements GeneralUser, Observer {
     public void follow(User toFollow){
         following.add(toFollow);
         toFollow.beFollowed(this);
+        timeUpdated = ZonedDateTime.now();
     }
     
     /**
@@ -77,6 +88,7 @@ public class User extends Observable implements GeneralUser, Observer {
      * @return nothing
      */
     public void beFollowed(User newFollower){
+        timeUpdated = ZonedDateTime.now();
         followers.add(newFollower);
     }
     
@@ -95,6 +107,17 @@ public class User extends Observable implements GeneralUser, Observer {
         for(User follow : followers){
             follow.update(this, newTweet);
         }
+        timeUpdated = ZonedDateTime.now();
+    }
+    
+    @Override
+    public String getFormattedCreationTime(){
+        return timeCreated.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a"));
+    }
+    
+    @Override
+    public String getFormattedUpdatedTime(){
+        return timeUpdated.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a"));
     }
    
     @Override
@@ -112,6 +135,11 @@ public class User extends Observable implements GeneralUser, Observer {
         return visitor.visit(this);
     }
     
+    @Override
+    public boolean exists(String str){
+        return userName.equals(str);
+    }
+    
     @Override // Used for hashset to ensure no duplicates. 
     public int hashCode(){
         return userName.hashCode();
@@ -121,7 +149,6 @@ public class User extends Observable implements GeneralUser, Observer {
     public boolean equals(Object obj){
         return obj instanceof GeneralUser && ((GeneralUser)obj).toString().equals(this.userName);
     }
-
 
     
 }

@@ -10,58 +10,88 @@
 
 <AnchorPane id="AnchorPane" prefHeight="432.0" prefWidth="960.0" style="-fx-background-color: #86D88D;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OopDemo.AdminViewController">
    <children>
-      <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="404.0" prefWidth="210.0" style="-fx-border-color: black; -fx-background-color: #FFF3BF;">
+      <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="403.0" prefWidth="210.0" style="-fx-border-color: black; -fx-background-color: #FFF3BF;">
          <children>
             <AnchorPane fx:id="treePane" layoutX="11.0" layoutY="9.0" prefHeight="384.0" prefWidth="189.0" />
          </children></AnchorPane>
-      <AnchorPane fx:id="window" layoutX="235.0" layoutY="77.0" prefHeight="159.0" prefWidth="356.0" style="-fx-border-color: black; -fx-background-color: #FFF3BF;">
+      <AnchorPane fx:id="window" layoutX="238.0" layoutY="14.0" prefHeight="251.0" prefWidth="350.0" style="-fx-border-color: black; -fx-background-color: #FFF3BF;">
          <children>
-            <TextField fx:id="userID" layoutX="77.0" layoutY="11.0" onKeyPressed="#onEnterUser" prefHeight="32.0" prefWidth="176.0" promptText="Enter a name" />
-            <Button layoutX="263.0" layoutY="11.0" mnemonicParsing="false" onAction="#onAddUser" prefHeight="32.0" prefWidth="79.0" text="Add">
+            <TextField fx:id="userID" layoutX="76.0" layoutY="161.0" onKeyPressed="#onEnterUser" prefHeight="32.0" prefWidth="176.0" promptText="Enter a name" />
+            <Button layoutX="262.0" layoutY="161.0" mnemonicParsing="false" onAction="#onAddUser" prefHeight="32.0" prefWidth="79.0" text="Add">
                <font>
                   <Font name="Gadugi Bold" size="14.0" />
                </font>
             </Button>
-            <Label layoutX="18.0" layoutY="17.0" text="User ID :">
+            <Label layoutX="17.0" layoutY="167.0" text="User ID :">
                <font>
                   <Font name="Gadugi" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="9.0" layoutY="60.0" text="Group ID :">
+            <Label layoutX="8.0" layoutY="210.0" text="Group ID :">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Gadugi" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="groupID" layoutX="77.0" layoutY="54.0" onKeyPressed="#onEnterGroup" prefHeight="32.0" prefWidth="176.0" promptText="Enter a name" />
-            <Button layoutX="263.0" layoutY="55.0" mnemonicParsing="false" onAction="#onAddGroup" prefHeight="32.0" prefWidth="79.0" text="Add">
+            <TextField fx:id="groupID" layoutX="76.0" layoutY="204.0" onKeyPressed="#onEnterGroup" prefHeight="32.0" prefWidth="176.0" promptText="Enter a name" />
+            <Button layoutX="262.0" layoutY="205.0" mnemonicParsing="false" onAction="#onAddGroup" prefHeight="32.0" prefWidth="79.0" text="Add">
                <font>
                   <Font name="Gadugi Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="13.0" layoutY="103.0" mnemonicParsing="false" onAction="#openUserView" prefHeight="44.0" prefWidth="330.0" text="Open User View">
+            <Button layoutX="13.0" layoutY="103.0" mnemonicParsing="false" onAction="#openUserView" prefHeight="44.0" prefWidth="322.0" text="Open User View">
                <font>
                   <Font name="Gadugi Bold" size="14.0" />
                </font>
             </Button>
+            <Label layoutX="29.0" layoutY="14.0" text="Current Selected:">
+               <font>
+                  <Font name="Gadugi" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="selectedUserLabel" layoutX="145.0" layoutY="14.0" prefHeight="20.0" prefWidth="189.0">
+               <font>
+                  <Font name="Gadugi" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="49.0" layoutY="42.0" text="Time Created:">
+               <font>
+                  <Font name="Gadugi" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="16.0" layoutY="73.0" text="Time Last Updated:">
+               <font>
+                  <Font name="Gadugi" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="timeCreatedLabel" layoutX="145.0" layoutY="42.0" prefHeight="20.0" prefWidth="189.0">
+               <font>
+                  <Font name="Gadugi" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="timeUpdatedLabel" layoutX="145.0" layoutY="73.0" prefHeight="20.0" prefWidth="189.0">
+               <font>
+                  <Font name="Gadugi" size="14.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
-      <AnchorPane layoutX="235.0" layoutY="245.0" prefHeight="173.0" prefWidth="356.0" style="-fx-border-color: black; -fx-background-color: #FFF3BF;">
+      <AnchorPane layoutX="238.0" layoutY="275.0" prefHeight="130.0" prefWidth="350.0" style="-fx-border-color: black; -fx-background-color: #FFF3BF;">
          <children>
-            <Button layoutX="14.0" layoutY="106.0" mnemonicParsing="false" onAction="#onCountMessagesPressed" prefHeight="53.0" prefWidth="164.0" text="Show Messages Total" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+            <Button layoutX="14.0" layoutY="87.0" mnemonicParsing="false" onAction="#onCountMessagesPressed" prefHeight="32.0" prefWidth="164.0" text="Show Messages Total" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="191.0" layoutY="106.0" mnemonicParsing="false" onAction="#onCountPositiveMessagesPressed" prefHeight="53.0" prefWidth="151.0" text="Show Positive Percentage" textAlignment="CENTER" wrapText="true">
+            <Button layoutX="191.0" layoutY="87.0" mnemonicParsing="false" onAction="#onCountPositiveMessagesPressed" prefHeight="32.0" prefWidth="151.0" text="Show Positive" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Gadugi Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="14.0" layoutY="48.0" mnemonicParsing="false" onAction="#onCountUserPressed" prefHeight="53.0" prefWidth="164.0" text="Show User Total" textAlignment="CENTER">
+            <Button layoutX="14.0" layoutY="48.0" mnemonicParsing="false" onAction="#onCountUserPressed" prefHeight="32.0" prefWidth="164.0" text="Show User Total" textAlignment="CENTER">
                <font>
                   <Font name="Gadugi Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="191.0" layoutY="48.0" mnemonicParsing="false" onAction="#onCountGroupPressed" prefHeight="53.0" prefWidth="151.0" text="Show Group Total">
+            <Button layoutX="191.0" layoutY="48.0" mnemonicParsing="false" onAction="#onCountGroupPressed" prefHeight="32.0" prefWidth="151.0" text="Show Group Total">
                <font>
                   <Font name="Gadugi Bold" size="14.0" />
                </font>
@@ -69,24 +99,34 @@
             <TextField fx:id="infoField" editable="false" layoutX="12.0" layoutY="7.0" prefHeight="32.0" prefWidth="330.0" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="596.0" layoutY="20.0" maxHeight="467.0" prefHeight="398.0" prefWidth="350.0" style="-fx-background-color: #FFF3BF; -fx-border-color: black;">
+      <AnchorPane layoutX="598.0" layoutY="14.0" maxHeight="467.0" prefHeight="275.0" prefWidth="356.0" style="-fx-background-color: #FFF3BF; -fx-border-color: black;">
          <children>
-            <ImageView fitHeight="510.0" fitWidth="330.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-blend-mode: multiply;">
+            <ImageView fitHeight="251.0" fitWidth="225.0" layoutX="126.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" style="-fx-blend-mode: multiply;">
                <image>
                   <Image url="@../assets/billy.jpg" />
                </image>
             </ImageView>
+            <Label layoutX="14.0" layoutY="10.0" prefHeight="251.0" prefWidth="106.0" style="-fx-background-color: #FFF3BF; -fx-border-color: black; -fx-background-radius: 10; -fx-border-radius: 10; -fx-padding: 10;" text="Billy Bronco OOP Simulator" wrapText="true">
+               <font>
+                  <Font name="Gadugi Bold" size="14.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
-      <Label layoutX="235.0" layoutY="21.0" prefHeight="44.0" prefWidth="356.0" style="-fx-background-color: #FFF3BF; -fx-border-color: black; -fx-background-radius: 10; -fx-border-radius: 10; -fx-padding: 10;" text="Billy Bronco OOP Simulator">
-         <font>
-            <Font name="Gadugi Bold" size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="251.0" layoutY="408.0" prefHeight="20.0" prefWidth="330.0" style="-fx-background-color: #FFF3BF; -fx-border-color: black; -fx-background-radius: 10; -fx-border-radius: 10; -fx-padding: 3;" text="positive messages contain &quot;good&quot;/&quot;great&quot;/&quot;excellent&quot;">
+      <Label layoutX="243.0" layoutY="406.0" prefHeight="25.0" prefWidth="350.0" style="-fx-background-color: #FFF3BF; -fx-border-color: black; -fx-background-radius: 10; -fx-border-radius: 10; -fx-padding: 3;" text="    positive messages contain &quot;good&quot;/&quot;great&quot;/&quot;excellent&quot;" textAlignment="CENTER">
          <font>
             <Font name="Gadugi Bold" size="12.0" />
          </font>
       </Label>
+      <AnchorPane layoutX="601.0" layoutY="299.0" prefHeight="107.0" prefWidth="350.0" style="-fx-border-color: black; -fx-background-color: #FFF3BF;">
+         <children>
+            <TextField fx:id="recentlyUpdatedInfoField" editable="false" layoutX="10.0" layoutY="11.0" prefHeight="44.0" prefWidth="330.0" />
+            <Button layoutX="10.0" layoutY="65.0" mnemonicParsing="false" onAction="#onGetMostRecentlyUpdated" prefHeight="32.0" prefWidth="330.0" text="Show Most Recent Updated" textAlignment="CENTER">
+               <font>
+                  <Font name="Gadugi Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

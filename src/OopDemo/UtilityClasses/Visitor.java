@@ -47,6 +47,7 @@ class UserCountVisitor implements Visitor{
         return sum; // number of users in the group
     }
     
+    
 }
 
 /**

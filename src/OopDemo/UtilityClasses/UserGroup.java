@@ -1,6 +1,10 @@
 
 package OopDemo.UtilityClasses;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet; // list of users in the group
 
 /***********************************************
@@ -15,7 +19,9 @@ import java.util.HashSet; // list of users in the group
  */
 public class UserGroup implements GeneralUser{
     
-    private String groupName; // Also represents the ID
+    private String groupName; // Also represents the ID 
+    private ZonedDateTime timeCreated; // when the user group was created
+    private ZonedDateTime timeUpdated;
     private HashSet<GeneralUser> members; // members that belong in the group.
     
     /**
@@ -24,6 +30,8 @@ public class UserGroup implements GeneralUser{
      */
     public UserGroup(String name){
         groupName = name;
+        timeCreated = ZonedDateTime.now();
+        timeUpdated = ZonedDateTime.now();
         members = new HashSet<>();
     }
     
@@ -34,12 +42,27 @@ public class UserGroup implements GeneralUser{
         return members;
     }
     
+    public ZonedDateTime getUpdated(){
+        return ZonedDateTime.of(2000, 1,1,12,00,00,00,ZoneId.systemDefault());
+    }
+    
     /**
-     * @param gu GeneralUser that will be added as a memeber to the group
+     * @param gu GeneralUser that will be added as a member to the group
      * @return nothing
      */
     public void addMember(GeneralUser gu){
         members.add(gu);
+        timeUpdated = ZonedDateTime.now();
+    }
+    
+    @Override
+    public String getFormattedCreationTime() {
+        return timeCreated.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a"));
+    }
+    
+    @Override
+    public String getFormattedUpdatedTime() {
+        return timeUpdated.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a"));
     }
     
     @Override
@@ -50,6 +73,16 @@ public class UserGroup implements GeneralUser{
     @Override // Visitor Pattern requirement
     public int count(Visitor visitor) {
         return visitor.visit(this);
+    }
+    
+    @Override
+    public boolean exists(String str) {
+        for( GeneralUser u : members ){
+            if(u.exists(str)){
+                return true;
+            }
+        }
+        return false; 
     }
     
     @Override // Used for hashset to ensure no duplicates. 
